@@ -1,0 +1,18 @@
+{
+    "version": "0",
+    "id": "af3c496d-f4a8-65d1-70f4-a69d52e9b584",
+    "detail-type": "ECS Service Action",
+    "source": "aws.ecs",
+    "account": "111122223333",
+    "time": "2019-11-19T19:27:22Z",
+    "region": "us-west-2",
+    "resources": [
+        "arn:aws:ecs:us-west-2:111122223333:service/default/servicetest"
+    ],
+    "detail": {
+        "eventType": "INFO",
+        "eventName": "SERVICE_STEADY_STATE",
+        "clusterArn": "arn:aws:ecs:us-west-2:111122223333:cluster/default",
+        "createdAt": "2019-11-19T19:27:22.695Z"
+    }
+}
