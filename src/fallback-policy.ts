@@ -48,6 +48,7 @@ export class FallbackPolicy extends cdk.Construct {
         [PRIMARY_SERVICE_ARN_ENV]: props.primaryService.serviceArn,
         [FALLBACK_SERVICE_ARN_ENV]: props.fallbackService.serviceArn,
       },
+      runtime: lambda.Runtime.NODEJS_14_X,
       logRetention: logRetention,
       initialPolicy: [
         new iam.PolicyStatement({
