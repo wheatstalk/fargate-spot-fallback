@@ -24,7 +24,6 @@ const primaryService = new ecs.FargateService(this, 'PrimaryService', {
   cluster,
   taskDefinition,
   capacityProviderStrategies: [{ capacityProvider: 'FARGATE_SPOT', weight: 1 }],
-  assignPublicIp: true,
   desiredCount: 10,
 });
 
@@ -35,7 +34,6 @@ const fallbackService = new ecs.FargateService(this, 'FallbackService', {
   cluster,
   taskDefinition,
   capacityProviderStrategies: [{ capacityProvider: 'FARGATE', weight: 1 }],
-  assignPublicIp: true,
   desiredCount: 0,
 });
 
