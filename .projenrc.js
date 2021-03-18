@@ -57,7 +57,7 @@ const project = new pj.AwsCdkConstructLibrary({
   ],
 
   dependabot: false,
-  releaseEveryCommit: false,
+  releaseEveryCommit: true,
   releaseToNpm: true,
 });
 
