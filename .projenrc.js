@@ -46,6 +46,7 @@ const project = new pj.AwsCdkConstructLibrary({
   ],
 
   devDeps: [
+    'esbuild@^0.9.3',
     'ts-node@9',
     '@types/node@14',
     '@aws-sdk/client-cloudformation@3',
@@ -61,8 +62,6 @@ const project = new pj.AwsCdkConstructLibrary({
 });
 
 project.gitignore.exclude('cdk.out');
-
-project.buildTask.prependExec('npm i -g esbuild');
 
 const yarnUp = project.github.addWorkflow('yarn-upgrade');
 

@@ -81,9 +81,6 @@
       "description": "Full release build (test+compile)",
       "steps": [
         {
-          "exec": "npm i -g esbuild"
-        },
-        {
           "spawn": "test"
         },
         {
