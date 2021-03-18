@@ -62,6 +62,8 @@ const project = new pj.AwsCdkConstructLibrary({
 
 project.gitignore.exclude('cdk.out');
 
+project.buildTask.prependExec('npm i -g esbuild');
+
 const yarnUp = project.github.addWorkflow('yarn-upgrade');
 
 yarnUp.on({
