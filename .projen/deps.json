@@ -136,11 +136,6 @@
       "type": "bundled"
     },
     {
-      "name": "aws-sdk",
-      "version": "2",
-      "type": "bundled"
-    },
-    {
       "name": "@aws-cdk/aws-ec2",
       "version": "^1.73.0",
       "type": "peer"
