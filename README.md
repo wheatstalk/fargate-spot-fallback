@@ -34,7 +34,6 @@ const fallbackService = new ecs.FargateService(this, 'FallbackService', {
   cluster,
   taskDefinition,
   capacityProviderStrategies: [{ capacityProvider: 'FARGATE', weight: 1 }],
-  desiredCount: 0,
 });
 
 // Create the fallback policy which increases the fallback service's desired
