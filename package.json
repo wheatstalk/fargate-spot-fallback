@@ -80,12 +80,10 @@
     "@aws-cdk/aws-lambda-nodejs": "^1.73.0",
     "@aws-cdk/aws-logs": "^1.73.0",
     "@aws-cdk/core": "^1.73.0",
-    "@aws-sdk/client-ecs": "3",
-    "aws-sdk": "2"
+    "@aws-sdk/client-ecs": "3"
   },
   "bundledDependencies": [
-    "@aws-sdk/client-ecs",
-    "aws-sdk"
+    "@aws-sdk/client-ecs"
   ],
   "keywords": [
     "cdk",

@@ -41,7 +41,6 @@ const project = new pj.AwsCdkConstructLibrary({
   ],
 
   bundledDeps: [
-    'aws-sdk@2',
     '@aws-sdk/client-ecs@3',
   ],
 
