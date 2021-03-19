@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.4...v0.0.5) (2021-03-19)
+
+
+### Bug Fixes
+
+* make the esbuild node version explicit and target node12 ([#6](https://github.com/wheatstalk/fargate-spot-fallback/issues/6)) ([5ee797e](https://github.com/wheatstalk/fargate-spot-fallback/commit/5ee797e9494ae213b6599661ded3cfc748468ead))
+
 ### [0.0.4](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.3...v0.0.4) (2021-03-18)
 
 ### [0.0.3](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.2...v0.0.3) (2021-03-18)
