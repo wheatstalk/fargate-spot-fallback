@@ -109,24 +109,29 @@ project.buildWorkflow.addJobs({
         },
       },
       {
-        name: 'Install dependencies',
-        run: 'yarn install --check-files --frozen-lockfile',
+        'name': 'Install dependencies',
+        'run': 'yarn install --check-files --frozen-lockfile',
+        'working-directory': '${{ github.workspace }}',
       },
       {
-        name: 'Synthesize project files',
-        run: 'npx projen',
+        'name': 'Synthesize project files',
+        'run': 'npx projen',
+        'working-directory': '${{ github.workspace }}',
       },
       {
-        name: 'Set git identity',
-        run: 'git config user.name "Auto-bump"\ngit config user.email "github-actions@github.com"',
+        'name': 'Set git identity',
+        'run': 'git config user.name "Auto-bump"\ngit config user.email "github-actions@github.com"',
+        'working-directory': '${{ github.workspace }}',
       },
       {
-        name: 'Build',
-        run: 'npx projen build',
+        'name': 'Build',
+        'run': 'npx projen build',
+        'working-directory': '${{ github.workspace }}',
       },
       {
-        name: 'Commit and push changes (if any)',
-        run: 'git diff --exit-code || (git commit -am "chore: self mutation" && git push origin HEAD:${{ github.event.pull_request.head.ref }})',
+        'name': 'Commit and push changes (if any)',
+        'run': 'git diff --exit-code || (git commit -am "chore: self mutation" && git push origin HEAD:${{ github.event.pull_request.head.ref }})',
+        'working-directory': '${{ github.workspace }}',
       },
     ],
     'container': {
@@ -134,7 +139,6 @@ project.buildWorkflow.addJobs({
       volumes: [
         '${{ github.workspace }}:${{ github.workspace }}',
       ],
-      options: '--workdir ${{ github.workspace }}',
     },
   },
 });
