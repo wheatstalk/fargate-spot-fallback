@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "PWD: $(pwd)"
 echo "Tree:"
-find $(pwd)
+find $(pwd) -not -path "*/node_modules/*" -not -path  "*/.git/*" -not -path "*/cdk.out/*"
 echo "=====> $@" >&2
 exec docker "$@"
