@@ -30,3 +30,7 @@ jobs:
           origin HEAD:${{ github.event.pull_request.head.ref }})'
     container:
       image: jsii/superchain
+      volumes:
+        - /home/runner/work:/home/runner/work
+      options:
+        workdir: /home/runner/work
