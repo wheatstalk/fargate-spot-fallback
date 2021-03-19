@@ -58,6 +58,11 @@
       "type": "build"
     },
     {
+      "name": "esbuild",
+      "version": "^0.9.3",
+      "type": "build"
+    },
+    {
       "name": "eslint",
       "type": "build"
     },

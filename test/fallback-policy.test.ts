@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { expect as expectCDK, haveResourceLike } from '@aws-cdk/assert';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as cdk from '@aws-cdk/core';
@@ -6,8 +5,6 @@ import { FallbackPolicy } from '../src';
 import { FALLBACK_SERVICE_ARN_ENV, PRIMARY_SERVICE_ARN_ENV } from '../src/fallback-policy.EventHandler';
 
 test('the policy handles the right events with a lambda', () => {
-  process.env.CDK_DOCKER = path.join(__dirname, 'docker-stub.sh');
-
   // GIVEN
   const stack = new cdk.Stack();
   const cluster = new ecs.Cluster(stack, 'Cluster');
