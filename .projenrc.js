@@ -45,7 +45,7 @@ const project = new pj.AwsCdkConstructLibrary({
   ],
 
   devDeps: [
-    'esbuild@^0.9.3',
+    // 'esbuild@^0.9.3',
     'ts-node@9',
     '@types/node@14',
     '@aws-sdk/client-cloudformation@3',
