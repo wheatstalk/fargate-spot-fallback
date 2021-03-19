@@ -31,6 +31,5 @@ jobs:
     container:
       image: jsii/superchain
       volumes:
-        - /home/runner/work:/home/runner/work
-      options:
-        workdir: /home/runner/work
+        - ${{ github.workspace }}:${{ github.workspace }}
+      options: --workdir ${{ github.workspace }}

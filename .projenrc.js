@@ -132,11 +132,9 @@ project.buildWorkflow.addJobs({
     'container': {
       image: 'jsii/superchain',
       volumes: [
-        '/home/runner/work:/home/runner/work',
+        '${{ github.workspace }}:${{ github.workspace }}',
       ],
-      options: {
-        workdir: '/home/runner/work',
-      },
+      options: '--workdir ${{ github.workspace }}',
     },
   },
 });
