@@ -13,6 +13,7 @@
 .yarn-integrity
 /coverage
 /dist
+/lambda
 /lib
 /test-reports/
 build/Release

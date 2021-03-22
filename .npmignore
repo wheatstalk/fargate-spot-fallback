@@ -17,6 +17,8 @@
 dist
 junit.xml
 !.jsii
+!/lambda
+!/lambda/*.js
 !/lib
 !/lib/**/*.d.ts
 !/lib/**/*.js

@@ -1,9 +1,9 @@
+import * as path from 'path';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as events from '@aws-cdk/aws-events';
 import * as events_targets from '@aws-cdk/aws-events-targets';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
-import * as lambda_nodejs from '@aws-cdk/aws-lambda-nodejs';
 import * as logs from '@aws-cdk/aws-logs';
 import * as cdk from '@aws-cdk/core';
 import { FALLBACK_SERVICE_ARN_ENV, PRIMARY_SERVICE_ARN_ENV } from './fallback-policy.EventHandler';
@@ -43,14 +43,13 @@ export class FallbackPolicy extends cdk.Construct {
       retention: logRetention,
     });
 
-    const handler = new lambda_nodejs.NodejsFunction(this, 'EventHandler', {
+    const handler = new lambda.Function(this, 'EventHandler', {
+      code: lambda.Code.fromAsset(path.join(__dirname, '..', 'lambda')),
+      handler: 'handler.handler',
+      runtime: lambda.Runtime.NODEJS_12_X,
       environment: {
         [PRIMARY_SERVICE_ARN_ENV]: props.primaryService.serviceArn,
         [FALLBACK_SERVICE_ARN_ENV]: props.fallbackService.serviceArn,
-      },
-      runtime: lambda.Runtime.NODEJS_12_X,
-      bundling: {
-        target: 'node12',
       },
       logRetention: logRetention,
       initialPolicy: [
