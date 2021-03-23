@@ -10,6 +10,8 @@ const project = new pj.AwsCdkConstructLibrary({
   repositoryUrl: 'https://github.com/wheatstalk/fargate-spot-fallback.git',
   description: 'A CDK construct that brings a fallback ECS service online when ECS cannnot acquire Fargate spot capacity.',
 
+  workflowContainerImage: 'wheatstalk/jsii-superchain:working',
+
   keywords: [
     'ecs',
     'fargate',
@@ -29,7 +31,6 @@ const project = new pj.AwsCdkConstructLibrary({
     '@aws-cdk/aws-ecs',
     '@aws-cdk/aws-ec2',
     '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-lambda-nodejs',
     '@aws-cdk/aws-events',
     '@aws-cdk/aws-events-targets',
     '@aws-cdk/aws-logs',
@@ -62,7 +63,11 @@ const project = new pj.AwsCdkConstructLibrary({
 
 project.gitignore.exclude('cdk.out');
 
-project.buildTask.prependExec('node --version');
+project.buildTask.prependExec('esbuild --bundle src/fallback-policy.EventHandler.ts --platform=node --outfile=lambda/handler.js');
+project.buildTask.prependSay('rm -fr lambda');
+project.buildTask.prependSay('Building lambda');
+project.npmignore.include('!/lambda', '!/lambda/*.js');
+project.gitignore.exclude('/lambda');
 
 const yarnUp = project.github.addWorkflow('yarn-upgrade');
 

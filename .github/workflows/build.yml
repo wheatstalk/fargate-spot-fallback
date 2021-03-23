@@ -29,4 +29,4 @@ jobs:
         run: 'git diff --exit-code || (git commit -am "chore: self mutation" && git push
           origin HEAD:${{ github.event.pull_request.head.ref }})'
     container:
-      image: jsii/superchain
+      image: wheatstalk/jsii-superchain:working
