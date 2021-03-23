@@ -17,9 +17,8 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
-      # Disable for now until projen is fixed.
-      # - name: Synthesize project files
-      #   run: npx projen
+      - name: Synthesize project files
+        run: npx projen
       - name: Set git identity
         run: |-
           git config user.name "Auto-bump"
@@ -30,4 +29,4 @@ jobs:
         run: 'git diff --exit-code || (git commit -am "chore: self mutation" && git push
           origin HEAD:${{ github.event.pull_request.head.ref }})'
     container:
-      image: wheatstalk/jsii-superchain:working
+      image: jsii/superchain

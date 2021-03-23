@@ -10,8 +10,6 @@ const project = new pj.AwsCdkConstructLibrary({
   repositoryUrl: 'https://github.com/wheatstalk/fargate-spot-fallback.git',
   description: 'A CDK construct that brings a fallback ECS service online when ECS cannnot acquire Fargate spot capacity.',
 
-  workflowContainerImage: 'wheatstalk/jsii-superchain:working',
-
   keywords: [
     'ecs',
     'fargate',
