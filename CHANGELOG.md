@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.10...v0.0.11) (2021-03-23)
+
+
+### Bug Fixes
+
+* regenerate projen after jsii fixed itself ([#15](https://github.com/wheatstalk/fargate-spot-fallback/issues/15)) ([95c3387](https://github.com/wheatstalk/fargate-spot-fallback/commit/95c33876cce38ebd2a4e66900e621e9858694f0a))
+
 ### [0.0.10](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.9...v0.0.10) (2021-03-23)
 
 ### [0.0.9](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.8...v0.0.9) (2021-03-22)
