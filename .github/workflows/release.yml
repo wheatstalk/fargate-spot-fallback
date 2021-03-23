@@ -42,7 +42,7 @@ jobs:
           name: dist
           path: dist
     container:
-      image: jsii/superchain
+      image: node:14
   release_npm:
     name: Release to NPM
     needs: build
