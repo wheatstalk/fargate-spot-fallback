@@ -32,6 +32,7 @@
   "devDependencies": {
     "@aws-cdk/assert": "^1.73.0",
     "@aws-sdk/client-cloudformation": "3",
+    "@aws-sdk/client-ecs": "3",
     "@aws-sdk/client-lambda": "3",
     "@aws-sdk/client-sts": "3",
     "@aws-sdk/credential-provider-ini": "3",
@@ -77,12 +78,9 @@
     "@aws-cdk/aws-iam": "^1.73.0",
     "@aws-cdk/aws-lambda": "^1.73.0",
     "@aws-cdk/aws-logs": "^1.73.0",
-    "@aws-cdk/core": "^1.73.0",
-    "@aws-sdk/client-ecs": "3"
+    "@aws-cdk/core": "^1.73.0"
   },
-  "bundledDependencies": [
-    "@aws-sdk/client-ecs"
-  ],
+  "bundledDependencies": [],
   "keywords": [
     "cdk",
     "ecs",

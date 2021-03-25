@@ -7,7 +7,6 @@ import * as lambdaSdk from '@aws-sdk/client-lambda';
 import * as stsSdk from '@aws-sdk/client-sts';
 import * as credentialProviderIni from '@aws-sdk/credential-provider-ini';
 import * as sdkTypes from '@aws-sdk/types';
-import { describeService, updateDesiredCount } from '../src/fallback-controller';
 
 // Ridiculous credential getter for aws sdk v3 feature regression. This lets
 // you use assumed roles from your ~/.aws/config and credentials file.
@@ -109,4 +108,43 @@ async function getStackOutputs(): Promise<StackOutputs> {
     fallbackServiceArn,
     eventHandler,
   };
+}
+
+/** @internal */
+export async function describeService(ecsClient: ecsSdk.ECSClient, serviceArn: string) {
+  const clusterArn = extractClusterFromServiceArn(serviceArn);
+  console.info(`Describing service ${serviceArn} in cluster ${clusterArn}`);
+  const serviceDescriptions = await ecsClient.send(new ecsSdk.DescribeServicesCommand({
+    cluster: clusterArn,
+    services: [serviceArn],
+  }));
+
+  if (!serviceDescriptions.services || serviceDescriptions.services.length === 0) {
+    throw new Error(`Failed to look up the service ${serviceArn}`);
+  }
+
+  return serviceDescriptions.services[0];
+}
+
+/** @internal */
+export async function updateDesiredCount(ecsClient: ecsSdk.ECSClient, serviceArn: string, desiredCount: number) {
+  await ecsClient.send(new ecsSdk.UpdateServiceCommand({
+    cluster: extractClusterFromServiceArn(serviceArn),
+    service: serviceArn,
+    desiredCount: desiredCount,
+  }));
+}
+
+const SERVICE_REGEX = new RegExp('(^arn:.*?):service/(.*?)/');
+
+/** @internal */
+export function extractClusterFromServiceArn(serviceArn: string) {
+  const result = SERVICE_REGEX.exec(serviceArn);
+
+  if (result) {
+    return `${result[1]}:cluster/${result[2]}`;
+    // return `${result[2]}`;
+  } else {
+    throw new Error(`Could not extract the cluster arn from the service ${serviceArn}`);
+  }
 }

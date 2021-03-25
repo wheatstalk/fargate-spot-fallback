@@ -2,7 +2,6 @@ import { expect as expectCDK, haveResourceLike } from '@aws-cdk/assert';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as cdk from '@aws-cdk/core';
 import { FallbackPolicy } from '../src';
-import { FALLBACK_SERVICE_ARN_ENV, PRIMARY_SERVICE_ARN_ENV } from '../src/fallback-policy.EventHandler';
 
 test('the policy handles the right events with a lambda', () => {
   // GIVEN
@@ -32,8 +31,8 @@ test('the policy handles the right events with a lambda', () => {
   expectCDK(stack).to(haveResourceLike('AWS::Lambda::Function', {
     Environment: {
       Variables: {
-        [PRIMARY_SERVICE_ARN_ENV]: { Ref: 'PrimaryService89B7B602' },
-        [FALLBACK_SERVICE_ARN_ENV]: { Ref: 'FallbackServiceA6253FBD' },
+        PRIMARY_SERVICE_ARN: { Ref: 'PrimaryService89B7B602' },
+        FALLBACK_SERVICE_ARN: { Ref: 'FallbackServiceA6253FBD' },
       },
     },
   }));
