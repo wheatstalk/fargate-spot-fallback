@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.13...v0.0.14) (2021-03-25)
+
+
+### Features
+
+* Compactify the lambda script ([#18](https://github.com/wheatstalk/fargate-spot-fallback/issues/18)) ([fcdd3da](https://github.com/wheatstalk/fargate-spot-fallback/commit/fcdd3dada5746e32d2de0335beca18340cd2603a))
+
 ### [0.0.13](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.12...v0.0.13) (2021-03-25)
 
 ### [0.0.12](https://github.com/wheatstalk/fargate-spot-fallback/compare/v0.0.11...v0.0.12) (2021-03-24)
