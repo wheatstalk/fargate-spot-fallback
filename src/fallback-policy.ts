@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as events from '@aws-cdk/aws-events';
@@ -6,7 +7,6 @@ import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as logs from '@aws-cdk/aws-logs';
 import * as cdk from '@aws-cdk/core';
-import { FALLBACK_SERVICE_ARN_ENV, PRIMARY_SERVICE_ARN_ENV } from './fallback-policy.EventHandler';
 
 /**
  * Props for `FallbackPolicy`
@@ -43,13 +43,14 @@ export class FallbackPolicy extends cdk.Construct {
       retention: logRetention,
     });
 
+    const handlerCode = fs.readFileSync(path.join(__dirname, '..', 'lambda', 'index.py')).toString();
     const handler = new lambda.Function(this, 'EventHandler', {
-      code: lambda.Code.fromAsset(path.join(__dirname, '..', 'lambda')),
-      handler: 'handler.handler',
-      runtime: lambda.Runtime.NODEJS_12_X,
+      code: lambda.Code.fromInline(handlerCode),
+      handler: 'index.handler',
+      runtime: lambda.Runtime.PYTHON_3_8,
       environment: {
-        [PRIMARY_SERVICE_ARN_ENV]: props.primaryService.serviceArn,
-        [FALLBACK_SERVICE_ARN_ENV]: props.fallbackService.serviceArn,
+        PRIMARY_SERVICE_ARN: props.primaryService.serviceArn,
+        FALLBACK_SERVICE_ARN: props.fallbackService.serviceArn,
       },
       logRetention: logRetention,
       initialPolicy: [

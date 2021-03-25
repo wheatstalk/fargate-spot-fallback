@@ -39,10 +39,6 @@ const project = new pj.AwsCdkConstructLibrary({
     '@aws-cdk/assert',
   ],
 
-  bundledDeps: [
-    '@aws-sdk/client-ecs@3',
-  ],
-
   devDeps: [
     'esbuild@^0.9.3',
     'ts-node@9',
@@ -50,6 +46,7 @@ const project = new pj.AwsCdkConstructLibrary({
     '@aws-sdk/client-cloudformation@3',
     '@aws-sdk/client-lambda@3',
     '@aws-sdk/client-sts@3',
+    '@aws-sdk/client-ecs@3',
     '@aws-sdk/credential-provider-ini@3',
     '@aws-sdk/types@3',
   ],
@@ -60,12 +57,6 @@ const project = new pj.AwsCdkConstructLibrary({
 });
 
 project.gitignore.exclude('cdk.out');
-
-project.buildTask.prependExec('esbuild --bundle src/fallback-policy.EventHandler.ts --platform=node --outfile=lambda/handler.js');
-project.buildTask.prependSay('rm -fr lambda');
-project.buildTask.prependSay('Building lambda');
-project.npmignore.include('!/lambda', '!/lambda/*.js');
-project.gitignore.exclude('/lambda');
 
 const yarnUp = project.github.addWorkflow('yarn-upgrade');
 

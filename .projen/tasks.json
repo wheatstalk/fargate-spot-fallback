@@ -81,15 +81,6 @@
       "description": "Full release build (test+compile)",
       "steps": [
         {
-          "say": "Building lambda"
-        },
-        {
-          "say": "rm -fr lambda"
-        },
-        {
-          "exec": "esbuild --bundle src/fallback-policy.EventHandler.ts --platform=node --outfile=lambda/handler.js"
-        },
-        {
           "spawn": "test"
         },
         {
