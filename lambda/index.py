@@ -35,7 +35,7 @@ def handler(event, context):
         logging.info(f'Setting desired count of {fallback_service_arn} to 0')
         fallback_cluster_arn = extract_cluster_from_service_arn(fallback_service_arn)
         ecs_client.update_service(cluster=fallback_cluster_arn, service=fallback_service_arn, desiredCount=0)
-    
+
     else:
         logging.warn(f'Received an unsupported event {event_name}')
 
@@ -46,8 +46,8 @@ def get_event_name(event):
             else None
 
 
-
 SERVICE_REGEX = re.compile('(^arn:.*?):service/(.*?)/')
+
 
 def extract_cluster_from_service_arn(service_arn: str):
     if match := SERVICE_REGEX.match(service_arn):
