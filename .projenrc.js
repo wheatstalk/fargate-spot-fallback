@@ -52,41 +52,19 @@ const project = new pj.AwsCdkConstructLibrary({
   ],
 
   dependabot: false,
+  projenUpgradeSecret: 'YARN_UPGRADE_TOKEN',
+  autoApproveUpgrades: true,
+  autoApproveOptions: {
+    secret: 'GITHUB_TOKEN',
+    allowedUsernames: ['github-actions', 'github-actions[bot]', 'misterjoshua'],
+  },
+
   releaseEveryCommit: true,
   releaseToNpm: true,
-});
 
-project.gitignore.exclude('cdk.out');
-
-const yarnUp = project.github.addWorkflow('yarn-upgrade');
-
-yarnUp.on({
-  schedule: [{ cron: '0 4 * * *' }],
-  workflow_dispatch: {},
-});
-
-yarnUp.addJobs({
-  upgrade: {
-    'name': 'Yarn Upgrade',
-    'runs-on': 'ubuntu-latest',
-    'steps': [
-      { uses: 'actions/checkout@v2' },
-      { run: 'yarn upgrade' },
-      { run: 'git diff' },
-      { run: 'CI="" npx projen' },
-      { run: 'yarn build' },
-      {
-        name: 'Create Pull Request',
-        uses: 'peter-evans/create-pull-request@v3',
-        with: {
-          'title': 'chore: automatic yarn upgrade',
-          'commit-message': 'chore: automatic yarn upgrade',
-          'token': '${{ secrets.YARN_UPGRADE_TOKEN }}',
-          'labels': 'auto-merge',
-        },
-      },
-    ],
-  },
+  gitignore: [
+    'cdk.out',
+  ],
 });
 
 project.synth();
