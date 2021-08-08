@@ -6,11 +6,6 @@
       "type": "build"
     },
     {
-      "name": "@aws-cdk/assert",
-      "version": "^1.73.0",
-      "type": "build"
-    },
-    {
       "name": "@aws-sdk/client-cloudformation",
       "version": "3",
       "type": "build"
@@ -47,11 +42,6 @@
     {
       "name": "@types/node",
       "version": "^10.17.0",
-      "type": "build"
-    },
-    {
-      "name": "@types/node",
-      "version": "14",
       "type": "build"
     },
     {
@@ -118,13 +108,7 @@
       "type": "build"
     },
     {
-      "name": "npm-check-updates",
-      "version": "^11",
-      "type": "build"
-    },
-    {
       "name": "projen",
-      "version": "^0.17.95",
       "type": "build"
     },
     {
