@@ -23,6 +23,8 @@ const project = new pj.AwsCdkConstructLibrary({
       },
     },
   },
+  
+  minNodeVersion: '12.0.0',
 
   cdkDependencies: [
     '@aws-cdk/core',
