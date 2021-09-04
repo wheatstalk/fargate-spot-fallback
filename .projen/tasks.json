@@ -136,20 +136,8 @@
         }
       ]
     },
-    "publish:github": {
-      "name": "publish:github",
-      "description": "Publish this package to GitHub Releases",
-      "requiredEnv": [
-        "GITHUB_TOKEN"
-      ],
-      "steps": [
-        {
-          "exec": "gh release create v$(cat dist/version.txt) -R ${{ github.repository }} -F dist/changelog.md -t v$(cat dist/version.txt)"
-        }
-      ]
-    },
-    "upgrade": {
-      "name": "upgrade",
+    "upgrade-dependencies": {
+      "name": "upgrade-dependencies",
       "description": "upgrade dependencies",
       "env": {
         "CI": "0"
@@ -215,7 +203,7 @@
     },
     "publish:npm": {
       "name": "publish:npm",
-      "description": "Publish this package to npm",
+      "description": "Publish this package to the npm Registry",
       "env": {
         "NPM_DIST_TAG": "latest",
         "NPM_REGISTRY": "registry.npmjs.org"
