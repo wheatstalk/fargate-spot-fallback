@@ -24,8 +24,6 @@ const project = new pj.AwsCdkConstructLibrary({
     },
   },
 
-  minNodeVersion: '12.0.0',
-
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/aws-ecs',
@@ -60,7 +58,7 @@ const project = new pj.AwsCdkConstructLibrary({
     allowedUsernames: ['github-actions', 'github-actions[bot]', 'misterjoshua'],
   },
 
-  releaseEveryCommit: true,
+  releaseEveryCommit: false,
   releaseToNpm: true,
 
   gitignore: [

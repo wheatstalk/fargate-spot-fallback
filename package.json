@@ -41,7 +41,7 @@
     "@aws-sdk/credential-provider-ini": "3",
     "@aws-sdk/types": "3",
     "@types/jest": "^26.0.24",
-    "@types/node": "^12.0.0",
+    "@types/node": "^14.17.0",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "esbuild": "^0.9.3",
@@ -91,9 +91,6 @@
     "fargate",
     "fargate spot"
   ],
-  "engines": {
-    "node": ">= 12.0.0"
-  },
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "version": "0.0.0",
