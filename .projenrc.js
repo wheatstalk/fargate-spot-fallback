@@ -58,7 +58,7 @@ const project = new pj.AwsCdkConstructLibrary({
     allowedUsernames: ['github-actions', 'github-actions[bot]', 'misterjoshua'],
   },
 
-  releaseEveryCommit: true,
+  releaseEveryCommit: false,
   releaseToNpm: true,
 
   gitignore: [
