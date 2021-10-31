@@ -16,14 +16,6 @@ const project = new pj.AwsCdkConstructLibrary({
     'fargate spot',
   ],
 
-  jestOptions: {
-    typescriptConfig: {
-      compilerOptions: {
-        lib: ['es2018', 'dom'],
-      },
-    },
-  },
-
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/aws-ecs',
