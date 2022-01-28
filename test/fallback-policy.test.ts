@@ -1,6 +1,6 @@
-import { expect as expectCDK, haveResourceLike } from '@aws-cdk/assert';
-import * as ecs from '@aws-cdk/aws-ecs';
-import * as cdk from '@aws-cdk/core';
+import { Template, Match } from 'aws-cdk-lib/assertions';
+import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as cdk from 'aws-cdk-lib/core';
 import { FallbackPolicy } from '../src';
 
 test('the policy handles the right events with a lambda', () => {
@@ -28,15 +28,16 @@ test('the policy handles the right events with a lambda', () => {
   });
 
   // THEN
-  expectCDK(stack).to(haveResourceLike('AWS::Lambda::Function', {
+  const assertStack = Template.fromStack(stack);
+  assertStack.hasResourceProperties('AWS::Lambda::Function', {
     Environment: {
       Variables: {
         PRIMARY_SERVICE_ARN: { Ref: 'PrimaryService89B7B602' },
         FALLBACK_SERVICE_ARN: { Ref: 'FallbackServiceA6253FBD' },
       },
     },
-  }));
-  expectCDK(stack).to(haveResourceLike('AWS::Events::Rule', {
+  });
+  assertStack.hasResourceProperties('AWS::Events::Rule', {
     EventPattern: {
       'source': ['aws.ecs'],
       'detail-type': ['ECS Service Action'],
@@ -48,12 +49,11 @@ test('the policy handles the right events with a lambda', () => {
         ],
       },
     },
-    Targets: [
-      {},
+    Targets: Match.arrayWith([
       {
         Arn: { 'Fn::GetAtt': ['FallbackPolicyEventHandlerE3D90B5E', 'Arn'] },
         Id: 'Target1',
       },
-    ],
-  }));
+    ]),
+  });
 });
