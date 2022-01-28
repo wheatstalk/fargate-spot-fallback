@@ -31,7 +31,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     allowedUsernames: ['github-actions', 'github-actions[bot]', 'misterjoshua'],
   },
 
-  releaseEveryCommit: false,
   releaseToNpm: true,
 });
 
