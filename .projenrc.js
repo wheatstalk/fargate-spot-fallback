@@ -48,10 +48,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   releaseEveryCommit: false,
   releaseToNpm: true,
-
-  // gitignore: [
-  //   'cdk.out',
-  // ],
 });
+
+project.addTask('integ:paired-services:test', {
+  exec: 'ts-node --project tsconfig.dev.json test/paired-services.run.ts',
+});
+
+project.upgradeWorkflow.postUpgradeTask.spawn(
+  project.tasks.tryFind('integ:snapshot-all'),
+);
 
 project.synth();

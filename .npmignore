@@ -21,3 +21,6 @@ dist
 tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
+test/.tmp/paired-services.integ/deploy.cdk.out
+test/.tmp/paired-services.integ/synth.cdk.out
+test/paired-services.integ.snapshot
