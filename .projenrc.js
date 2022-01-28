@@ -7,28 +7,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   repositoryUrl: 'https://github.com/wheatstalk/fargate-spot-fallback.git',
   description: 'A CDK construct that brings a fallback ECS service online when ECS cannnot acquire Fargate spot capacity.',
 
-  cdkVersion: '1.73.0',
-  defaultReleaseBranch: 'master',
+  cdkVersion: '2.0.0',
+  defaultReleaseBranch: 'main',
 
   keywords: [
     'ecs',
     'fargate',
     'fargate spot',
-  ],
-
-  cdkDependencies: [
-    '@aws-cdk/core',
-    '@aws-cdk/aws-ecs',
-    '@aws-cdk/aws-ec2',
-    '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-events',
-    '@aws-cdk/aws-events-targets',
-    '@aws-cdk/aws-logs',
-    '@aws-cdk/aws-iam',
-  ],
-
-  cdkTestDependencies: [
-    '@aws-cdk/assert',
   ],
 
   devDeps: [

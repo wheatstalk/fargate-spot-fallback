@@ -1,12 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as ecs from '@aws-cdk/aws-ecs';
-import * as events from '@aws-cdk/aws-events';
-import * as events_targets from '@aws-cdk/aws-events-targets';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as logs from '@aws-cdk/aws-logs';
-import * as cdk from '@aws-cdk/core';
+import * as ecs from 'aws-cdk-lib/aws-ecs';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as events_targets from 'aws-cdk-lib/aws-events-targets';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as logs from 'aws-cdk-lib/aws-logs';
+import { Construct } from 'constructs';
 
 /**
  * Props for `FallbackPolicy`
@@ -27,7 +27,7 @@ export interface FallbackPolicyProps {
 /**
  * Add a fallback policy for fargate capacity provisioning errors.
  */
-export class FallbackPolicy extends cdk.Construct {
+export class FallbackPolicy extends Construct {
   /**
    * The event handler function so we can simulate capacity unavailable in
    * the integration tests.
@@ -35,7 +35,7 @@ export class FallbackPolicy extends cdk.Construct {
    */
   public readonly _eventHandler: lambda.IFunction;
 
-  constructor(scope: cdk.Construct, id: string, props: FallbackPolicyProps) {
+  constructor(scope: Construct, id: string, props: FallbackPolicyProps) {
     super(scope, id);
 
     const logRetention = logs.RetentionDays.ONE_MONTH;
