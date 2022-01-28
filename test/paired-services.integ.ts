@@ -1,7 +1,7 @@
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as cdk from '@aws-cdk/core';
-import { FallbackPolicy } from '../fallback-policy';
+import { FallbackPolicy } from '../src';
 
 export class IntegPairedServices extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: cdk.StackProps = {}) {
@@ -53,3 +53,18 @@ export class IntegPairedServices extends cdk.Stack {
     new cdk.CfnOutput(this, 'EventHandler', { value: policy._eventHandler.functionName });
   }
 }
+
+const app = new cdk.App();
+new IntegPairedServices(app, 'integ-paired-services2');
+
+app.synth();
+
+/**
+ * To manually test:
+ *
+ * Deploy the stack:
+ * yarn integ:paired-services:watch
+ *
+ * Simulate task placement error through restoration to steady state:
+ * yarn integ:paired-services:test
+ */

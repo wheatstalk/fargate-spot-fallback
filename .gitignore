@@ -2,6 +2,7 @@
 !/.gitattributes
 !/.projen/tasks.json
 !/.projen/deps.json
+!/.projen/files.json
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/auto-approve.yml
 !/.github/workflows/stale.yml
@@ -31,7 +32,6 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
-cdk.out
 !/.projenrc.js
 /test-reports/
 junit.xml
@@ -50,4 +50,15 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
+test/paired-services.integ.snapshot/asset.*
+test/paired-services.integ.snapshot/**/asset.*
+test/paired-services.integ.snapshot/cdk.out
+test/paired-services.integ.snapshot/**/cdk.out
+test/paired-services.integ.snapshot/manifest.json
+test/paired-services.integ.snapshot/**/manifest.json
+test/paired-services.integ.snapshot/tree.json
+test/paired-services.integ.snapshot/**/tree.json
+test/.tmp/paired-services.integ/deploy.cdk.out
+test/.tmp/paired-services.integ/synth.cdk.out
+!test/paired-services.integ.snapshot
 !/.github/workflows/upgrade-master.yml

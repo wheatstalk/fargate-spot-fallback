@@ -1,14 +1,14 @@
-const pj = require('projen');
+const { awscdk } = require('projen');
 
-const project = new pj.AwsCdkConstructLibrary({
+const project = new awscdk.AwsCdkConstructLibrary({
+  name: '@wheatstalk/fargate-spot-fallback',
   author: 'Josh Kellendonk',
   authorAddress: 'joshkellendonk@gmail.com',
-  cdkVersion: '1.73.0',
-  defaultReleaseBranch: 'master',
-  jsiiFqn: 'projen.AwsCdkConstructLibrary',
-  name: '@wheatstalk/fargate-spot-fallback',
   repositoryUrl: 'https://github.com/wheatstalk/fargate-spot-fallback.git',
   description: 'A CDK construct that brings a fallback ECS service online when ECS cannnot acquire Fargate spot capacity.',
+
+  cdkVersion: '1.73.0',
+  defaultReleaseBranch: 'master',
 
   keywords: [
     'ecs',
@@ -32,7 +32,6 @@ const project = new pj.AwsCdkConstructLibrary({
   ],
 
   devDeps: [
-    'esbuild@^0.9.3',
     'ts-node@9',
     '@aws-sdk/client-cloudformation@3',
     '@aws-sdk/client-lambda@3',
@@ -42,20 +41,21 @@ const project = new pj.AwsCdkConstructLibrary({
     '@aws-sdk/types@3',
   ],
 
-  dependabot: false,
-  projenUpgradeSecret: 'YARN_UPGRADE_TOKEN',
   autoApproveUpgrades: true,
   autoApproveOptions: {
-    secret: 'GITHUB_TOKEN',
     allowedUsernames: ['github-actions', 'github-actions[bot]', 'misterjoshua'],
   },
 
   releaseEveryCommit: false,
   releaseToNpm: true,
-
-  gitignore: [
-    'cdk.out',
-  ],
 });
+
+project.addTask('integ:paired-services:test', {
+  exec: 'ts-node --project tsconfig.dev.json test/paired-services.run.ts',
+});
+
+project.upgradeWorkflow.postUpgradeTask.spawn(
+  project.tasks.tryFind('integ:snapshot-all'),
+);
 
 project.synth();

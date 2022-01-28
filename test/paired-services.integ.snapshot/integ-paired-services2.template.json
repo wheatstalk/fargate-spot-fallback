@@ -1,0 +1,832 @@
+{
+  "Resources": {
+    "Vpc8378EB38": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-paired-services2/Vpc"
+          }
+        ]
+      }
+    },
+    "VpcpublicSubnet1Subnet2BB74ED7": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/17",
+        "VpcId": {
+          "Ref": "Vpc8378EB38"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "integ-paired-services2/Vpc/publicSubnet1"
+          }
+        ]
+      }
+    },
+    "VpcpublicSubnet1RouteTable15C15F8E": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "Vpc8378EB38"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-paired-services2/Vpc/publicSubnet1"
+          }
+        ]
+      }
+    },
+    "VpcpublicSubnet1RouteTableAssociation4E83B6E4": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcpublicSubnet1RouteTable15C15F8E"
+        },
+        "SubnetId": {
+          "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+        }
+      }
+    },
+    "VpcpublicSubnet1DefaultRouteB88F9E93": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcpublicSubnet1RouteTable15C15F8E"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcIGWD7BA715C"
+        }
+      },
+      "DependsOn": [
+        "VpcVPCGWBF912B6E"
+      ]
+    },
+    "VpcpublicSubnet2SubnetE34B022A": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.128.0/17",
+        "VpcId": {
+          "Ref": "Vpc8378EB38"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "public"
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public"
+          },
+          {
+            "Key": "Name",
+            "Value": "integ-paired-services2/Vpc/publicSubnet2"
+          }
+        ]
+      }
+    },
+    "VpcpublicSubnet2RouteTableC5A6DF77": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "Vpc8378EB38"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-paired-services2/Vpc/publicSubnet2"
+          }
+        ]
+      }
+    },
+    "VpcpublicSubnet2RouteTableAssociationCCE257FF": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcpublicSubnet2RouteTableC5A6DF77"
+        },
+        "SubnetId": {
+          "Ref": "VpcpublicSubnet2SubnetE34B022A"
+        }
+      }
+    },
+    "VpcpublicSubnet2DefaultRoute732F0BEB": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "VpcpublicSubnet2RouteTableC5A6DF77"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "VpcIGWD7BA715C"
+        }
+      },
+      "DependsOn": [
+        "VpcVPCGWBF912B6E"
+      ]
+    },
+    "VpcIGWD7BA715C": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "integ-paired-services2/Vpc"
+          }
+        ]
+      }
+    },
+    "VpcVPCGWBF912B6E": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "Vpc8378EB38"
+        },
+        "InternetGatewayId": {
+          "Ref": "VpcIGWD7BA715C"
+        }
+      }
+    },
+    "ClusterEB0386A7": {
+      "Type": "AWS::ECS::Cluster"
+    },
+    "Cluster3DA9CCBA": {
+      "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+      "Properties": {
+        "CapacityProviders": [
+          "FARGATE_SPOT",
+          "FARGATE"
+        ],
+        "Cluster": {
+          "Ref": "ClusterEB0386A7"
+        },
+        "DefaultCapacityProviderStrategy": []
+      }
+    },
+    "PrimaryTaskRoleF03098AC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      }
+    },
+    "Primary503D6591": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": "nginx:1",
+            "Name": "web",
+            "PortMappings": [
+              {
+                "ContainerPort": 80,
+                "Protocol": "tcp"
+              }
+            ]
+          }
+        ],
+        "Cpu": "256",
+        "Family": "integpairedservices2Primary47A35D6D",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE"
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "PrimaryTaskRoleF03098AC",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "PrimaryService89B7B602": {
+      "Type": "AWS::ECS::Service",
+      "Properties": {
+        "CapacityProviderStrategy": [
+          {
+            "CapacityProvider": "FARGATE_SPOT",
+            "Weight": 1
+          }
+        ],
+        "Cluster": {
+          "Ref": "ClusterEB0386A7"
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50
+        },
+        "DesiredCount": 10,
+        "EnableECSManagedTags": false,
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "ENABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "PrimaryServiceSecurityGroup7B677155",
+                  "GroupId"
+                ]
+              }
+            ],
+            "Subnets": [
+              {
+                "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+              },
+              {
+                "Ref": "VpcpublicSubnet2SubnetE34B022A"
+              }
+            ]
+          }
+        },
+        "TaskDefinition": {
+          "Ref": "Primary503D6591"
+        }
+      }
+    },
+    "PrimaryServiceSecurityGroup7B677155": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "integ-paired-services2/PrimaryService/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38"
+        }
+      }
+    },
+    "FallbackServiceA6253FBD": {
+      "Type": "AWS::ECS::Service",
+      "Properties": {
+        "CapacityProviderStrategy": [
+          {
+            "CapacityProvider": "FARGATE",
+            "Weight": 1
+          }
+        ],
+        "Cluster": {
+          "Ref": "ClusterEB0386A7"
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50
+        },
+        "DesiredCount": 0,
+        "EnableECSManagedTags": false,
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "ENABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "FallbackServiceSecurityGroup62B01D1F",
+                  "GroupId"
+                ]
+              }
+            ],
+            "Subnets": [
+              {
+                "Ref": "VpcpublicSubnet1Subnet2BB74ED7"
+              },
+              {
+                "Ref": "VpcpublicSubnet2SubnetE34B022A"
+              }
+            ]
+          }
+        },
+        "TaskDefinition": {
+          "Ref": "Primary503D6591"
+        }
+      }
+    },
+    "FallbackServiceSecurityGroup62B01D1F": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "integ-paired-services2/FallbackService/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": {
+          "Ref": "Vpc8378EB38"
+        }
+      }
+    },
+    "FallbackPolicyServiceEventLog1B351484": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 30
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain"
+    },
+    "FallbackPolicyEventHandlerServiceRole246E1A8A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "FallbackPolicyEventHandlerServiceRoleDefaultPolicy304C7D30": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "ecs:DescribeServices",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "PrimaryService89B7B602"
+              }
+            },
+            {
+              "Action": [
+                "ecs:DescribeServices",
+                "ecs:UpdateService"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "FallbackServiceA6253FBD"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "FallbackPolicyEventHandlerServiceRoleDefaultPolicy304C7D30",
+        "Roles": [
+          {
+            "Ref": "FallbackPolicyEventHandlerServiceRole246E1A8A"
+          }
+        ]
+      }
+    },
+    "FallbackPolicyEventHandlerE3D90B5E": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "ZipFile": "import boto3\nimport os\nimport re\nimport logging\n\n\ndef handler(event, context):\n    logging.getLogger().setLevel(logging.INFO)\n    logging.info('Creating ECS client')\n    ecs_client = boto3.client('ecs')\n\n    primary_service_arn = os.environ['PRIMARY_SERVICE_ARN']\n    fallback_service_arn = os.environ['FALLBACK_SERVICE_ARN']\n\n    logging.info(f'Primary Service ARN: {primary_service_arn}')\n    logging.info(f'Fallback Service ARN: {fallback_service_arn}')\n\n    event_name = get_event_name(event)\n\n    if event_name == 'SERVICE_TASK_PLACEMENT_FAILURE':\n        logging.info('Service task failed to be placed. Initiating fallback.')\n        primary_cluster_arn = extract_cluster_from_service_arn(primary_service_arn)\n\n        logging.info(f'Describing {primary_service_arn} in cluster {primary_cluster_arn}')\n        result = ecs_client.describe_services(cluster=primary_cluster_arn, services=[primary_service_arn])\n        primary_service_desired_count = result['services'][0]['desiredCount']\n\n        logging.info(f'Setting desired count of {fallback_service_arn} to {primary_service_desired_count}')\n        fallback_cluster_arn = extract_cluster_from_service_arn(fallback_service_arn)\n        ecs_client.update_service(cluster=fallback_cluster_arn, service=fallback_service_arn, desiredCount=primary_service_desired_count)\n\n    elif event_name == 'SERVICE_STEADY_STATE':\n        logging.info('The primary service reached steady state.')\n\n        logging.info(f'Setting desired count of {fallback_service_arn} to 0')\n        fallback_cluster_arn = extract_cluster_from_service_arn(fallback_service_arn)\n        ecs_client.update_service(cluster=fallback_cluster_arn, service=fallback_service_arn, desiredCount=0)\n\n    else:\n        logging.warn(f'Received an unsupported event {event_name}')\n\n\ndef get_event_name(event):\n    return event['detail']['eventName'] \\\n        if event and event['detail'] and event['detail']['eventName'] \\\n            else None\n\n\nSERVICE_REGEX = re.compile('(^arn:.*?):service/(.*?)/')\n\n\ndef extract_cluster_from_service_arn(service_arn: str):\n    if match := SERVICE_REGEX.match(service_arn):\n        return f'{match.group(1)}:cluster/{match.group(2)}'\n    else:\n        raise Exception(f'Could not extract the cluster arn from the service {service_arn}')"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "FallbackPolicyEventHandlerServiceRole246E1A8A",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "PRIMARY_SERVICE_ARN": {
+              "Ref": "PrimaryService89B7B602"
+            },
+            "FALLBACK_SERVICE_ARN": {
+              "Ref": "FallbackServiceA6253FBD"
+            }
+          }
+        },
+        "Handler": "index.handler",
+        "Runtime": "python3.8"
+      },
+      "DependsOn": [
+        "FallbackPolicyEventHandlerServiceRoleDefaultPolicy304C7D30",
+        "FallbackPolicyEventHandlerServiceRole246E1A8A"
+      ]
+    },
+    "FallbackPolicyEventHandlerLogRetention5C3743BE": {
+      "Type": "Custom::LogRetention",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn"
+          ]
+        },
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "FallbackPolicyEventHandlerE3D90B5E"
+              }
+            ]
+          ]
+        },
+        "RetentionInDays": 30
+      }
+    },
+    "FallbackPolicyServiceEventRule7D4826BE": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "EventPattern": {
+          "source": [
+            "aws.ecs"
+          ],
+          "detail-type": [
+            "ECS Service Action"
+          ],
+          "resources": [
+            {
+              "Ref": "PrimaryService89B7B602"
+            }
+          ],
+          "detail": {
+            "eventName": [
+              "SERVICE_STEADY_STATE",
+              "SERVICE_TASK_PLACEMENT_FAILURE"
+            ]
+          }
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::Join": [
+                "",
+                [
+                  "arn:",
+                  {
+                    "Ref": "AWS::Partition"
+                  },
+                  ":logs:",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ":",
+                  {
+                    "Ref": "AWS::AccountId"
+                  },
+                  ":log-group:",
+                  {
+                    "Ref": "FallbackPolicyServiceEventLog1B351484"
+                  }
+                ]
+              ]
+            },
+            "Id": "Target0"
+          },
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "FallbackPolicyEventHandlerE3D90B5E",
+                "Arn"
+              ]
+            },
+            "Id": "Target1"
+          }
+        ]
+      }
+    },
+    "FallbackPolicyServiceEventRuleAllowEventRuleintegpairedservices2FallbackPolicyEventHandler0E3FF78B8C34DF6F": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "FallbackPolicyEventHandlerE3D90B5E",
+            "Arn"
+          ]
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "FallbackPolicyServiceEventRule7D4826BE",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "Roles": [
+          {
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+          }
+        ]
+      }
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "Runtime": "nodejs14.x",
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "c13434f8f1aa2ea30fa577b2feb208a41368b11787b752e10bfc71fe8eb919d5.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+      ]
+    },
+    "EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7CustomResourcePolicy1933B9F5": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "logs:PutResourcePolicy",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "logs:DeleteResourcePolicy",
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7CustomResourcePolicy1933B9F5",
+        "Roles": [
+          {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+          }
+        ]
+      }
+    },
+    "EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E72D25D92A": {
+      "Type": "Custom::CloudwatchLogResourcePolicy",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn"
+          ]
+        },
+        "Create": {
+          "Fn::Join": [
+            "",
+            [
+              "{\"service\":\"CloudWatchLogs\",\"action\":\"putResourcePolicy\",\"parameters\":{\"policyName\":\"integpairedservices2EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7A66B4141\",\"policyDocument\":\"{\\\"Statement\\\":[{\\\"Action\\\":[\\\"logs:PutLogEvents\\\",\\\"logs:CreateLogStream\\\"],\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":{\\\"Service\\\":\\\"events.amazonaws.com\\\"},\\\"Resource\\\":\\\"",
+              {
+                "Fn::GetAtt": [
+                  "FallbackPolicyServiceEventLog1B351484",
+                  "Arn"
+                ]
+              },
+              "\\\"}],\\\"Version\\\":\\\"2012-10-17\\\"}\"},\"physicalResourceId\":{\"id\":\"EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7\"}}"
+            ]
+          ]
+        },
+        "Update": {
+          "Fn::Join": [
+            "",
+            [
+              "{\"service\":\"CloudWatchLogs\",\"action\":\"putResourcePolicy\",\"parameters\":{\"policyName\":\"integpairedservices2EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7A66B4141\",\"policyDocument\":\"{\\\"Statement\\\":[{\\\"Action\\\":[\\\"logs:PutLogEvents\\\",\\\"logs:CreateLogStream\\\"],\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":{\\\"Service\\\":\\\"events.amazonaws.com\\\"},\\\"Resource\\\":\\\"",
+              {
+                "Fn::GetAtt": [
+                  "FallbackPolicyServiceEventLog1B351484",
+                  "Arn"
+                ]
+              },
+              "\\\"}],\\\"Version\\\":\\\"2012-10-17\\\"}\"},\"physicalResourceId\":{\"id\":\"EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7\"}}"
+            ]
+          ]
+        },
+        "Delete": "{\"service\":\"CloudWatchLogs\",\"action\":\"deleteResourcePolicy\",\"parameters\":{\"policyName\":\"integpairedservices2EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7A66B4141\"},\"ignoreErrorCodesMatching\":\"400\"}",
+        "InstallLatestAwsSdk": true
+      },
+      "DependsOn": [
+        "EventsLogGroupPolicyintegpairedservices2FallbackPolicyServiceEventRule255999E7CustomResourcePolicy1933B9F5"
+      ],
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "70893b631249dc61260989e92e90d60ae94fbbec490a1e065680d77383084d8d.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn"
+          ]
+        },
+        "Handler": "index.handler",
+        "Runtime": "nodejs12.x",
+        "Timeout": 120
+      },
+      "DependsOn": [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+      ]
+    }
+  },
+  "Outputs": {
+    "PrimaryServiceArn": {
+      "Value": {
+        "Ref": "PrimaryService89B7B602"
+      }
+    },
+    "FallbackServiceArn": {
+      "Value": {
+        "Ref": "FallbackServiceA6253FBD"
+      }
+    },
+    "EventHandler": {
+      "Value": {
+        "Ref": "FallbackPolicyEventHandlerE3D90B5E"
+      }
+    }
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}

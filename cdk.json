@@ -1,0 +1,18 @@
+{
+  "watch": {
+    "include": [
+      "src/**/*.ts",
+      "test/**/*.ts"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "**/*.d.ts",
+      "**/*.js",
+      "tsconfig.json",
+      "package*.json",
+      "yarn.lock",
+      "node_modules"
+    ]
+  }
+}
