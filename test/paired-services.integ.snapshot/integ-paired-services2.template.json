@@ -188,8 +188,8 @@
       "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
       "Properties": {
         "CapacityProviders": [
-          "FARGATE_SPOT",
-          "FARGATE"
+          "FARGATE",
+          "FARGATE_SPOT"
         ],
         "Cluster": {
           "Ref": "ClusterEB0386A7"
@@ -635,7 +635,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "c13434f8f1aa2ea30fa577b2feb208a41368b11787b752e10bfc71fe8eb919d5.zip"
+          "S3Key": "b120b13d9d868c7622e7db1b68bae4c0f82ffd0227b8c15f2cef38e186ff3827.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -761,7 +761,7 @@
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
           },
-          "S3Key": "70893b631249dc61260989e92e90d60ae94fbbec490a1e065680d77383084d8d.zip"
+          "S3Key": "11d371859e49f3b1a49896583254890801a40beada56e4c84409a179a221e2e2.zip"
         },
         "Role": {
           "Fn::GetAtt": [

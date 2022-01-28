@@ -45,7 +45,6 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.73.0",
     "@aws-sdk/client-cloudformation": "3",
     "@aws-sdk/client-ecs": "3",
     "@aws-sdk/client-lambda": "3",
@@ -56,7 +55,9 @@
     "@types/node": "^12",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
-    "aws-cdk": "^1",
+    "aws-cdk": "^2",
+    "aws-cdk-lib": "2.0.0",
+    "constructs": "10.0.5",
     "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^2.5.0",
@@ -75,25 +76,8 @@
     "typescript": "^4.5.5"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-ec2": "^1.73.0",
-    "@aws-cdk/aws-ecs": "^1.73.0",
-    "@aws-cdk/aws-events": "^1.73.0",
-    "@aws-cdk/aws-events-targets": "^1.73.0",
-    "@aws-cdk/aws-iam": "^1.73.0",
-    "@aws-cdk/aws-lambda": "^1.73.0",
-    "@aws-cdk/aws-logs": "^1.73.0",
-    "@aws-cdk/core": "^1.73.0",
-    "constructs": "^3.2.27"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-ec2": "^1.73.0",
-    "@aws-cdk/aws-ecs": "^1.73.0",
-    "@aws-cdk/aws-events": "^1.73.0",
-    "@aws-cdk/aws-events-targets": "^1.73.0",
-    "@aws-cdk/aws-iam": "^1.73.0",
-    "@aws-cdk/aws-lambda": "^1.73.0",
-    "@aws-cdk/aws-logs": "^1.73.0",
-    "@aws-cdk/core": "^1.73.0"
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.0.5"
   },
   "keywords": [
     "cdk",

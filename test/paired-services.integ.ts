@@ -1,10 +1,11 @@
-import * as ec2 from '@aws-cdk/aws-ec2';
-import * as ecs from '@aws-cdk/aws-ecs';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as ecs from 'aws-cdk-lib/aws-ecs';
+import { Construct } from 'constructs';
 import { FallbackPolicy } from '../src';
 
 export class IntegPairedServices extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props: cdk.StackProps = {}) {
+  constructor(scope: Construct, id: string, props: cdk.StackProps = {}) {
     super(scope, id, props);
 
     const vpc = new ec2.Vpc(this, 'Vpc', {
@@ -16,7 +17,7 @@ export class IntegPairedServices extends cdk.Stack {
 
     const cluster = new ecs.Cluster(this, 'Cluster', {
       vpc,
-      capacityProviders: ['FARGATE_SPOT', 'FARGATE'],
+      enableFargateCapacityProviders: true,
     });
 
     const taskDefinition = new ecs.FargateTaskDefinition(this, 'Primary');

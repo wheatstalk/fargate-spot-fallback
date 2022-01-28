@@ -61,4 +61,4 @@ test/paired-services.integ.snapshot/**/tree.json
 test/.tmp/paired-services.integ/deploy.cdk.out
 test/.tmp/paired-services.integ/synth.cdk.out
 !test/paired-services.integ.snapshot
-!/.github/workflows/upgrade-master.yml
+!/.github/workflows/upgrade-main.yml
